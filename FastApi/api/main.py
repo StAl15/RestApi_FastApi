@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from .database import engine, metadata, database
-import auth
-import goods
-import users
+from . import users, goods, auth
 
 metadata.create_all(engine)
 
