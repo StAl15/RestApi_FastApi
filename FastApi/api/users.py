@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, File, UploadFile
 from fastapi import status, HTTPException
 from passlib.hash import pbkdf2_sha256
 from .database import database, User

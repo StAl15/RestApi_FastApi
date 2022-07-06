@@ -7,13 +7,13 @@ class GoodSchemaIn(BaseModel):
     description: str
     price: float
     type: str
-    img_src: bytearray
+    img_src: bytes
     color_variants: str
     parametrs: str
 
 
 class UserSchemaIn(BaseModel):
-    profile_img: bytearray
+    profile_img: bytes
     name: str
     email: str
     password: str
