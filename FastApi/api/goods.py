@@ -5,7 +5,6 @@ from .database import database, Good
 from .schemas import GoodSchema, GoodSchemaIn, UserSchema
 from .token import get_current_user
 
-
 router = APIRouter(
     tags=["Goods"]
 )
@@ -25,16 +24,31 @@ async def add_good(good: GoodSchemaIn, current_user: UserSchema = Depends(get_cu
 @router.get('/goods/', response_model=List[GoodSchema], status_code=status.HTTP_201_CREATED)
 async def get_goods(current_user: UserSchema = Depends(get_current_user)):
     query = Good.select()
-    return await database.fetch_all(query=query)
+    goods = await database.fetch_all(query=query)
+    if not goods:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Goods not exist")
+    return goods
 
 
-@router.get('/goods/{id}', response_model=GoodSchema, status_code=status.HTTP_200_OK)
+def get_pairs(arr):
+    tree = {}
+    for i in range(0, len(arr), 2):
+        tree[f'{arr[i]}'] = arr[i + 1]
+    return tree
+
+
+@router.get('/goods/{id}', status_code=status.HTTP_200_OK)
 async def get_good_details(id: int, current_user: UserSchema = Depends(get_current_user)):
     query = Good.select().where(id == Good.c.id)
     necessary_good = await database.fetch_one(query=query)
     if not necessary_good:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Good not found")
-    return {**necessary_good}
+    params = necessary_good['parametrs'].split(' ')
+    colors = necessary_good['color_variants'].split(' ')
+    return {**necessary_good,
+            'parametrs': get_pairs(params),
+            'colors': colors
+            }
 
 
 @router.put('/goods/{id}', response_model=GoodSchema, status_code=status.HTTP_202_ACCEPTED)

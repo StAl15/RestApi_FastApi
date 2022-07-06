@@ -21,6 +21,7 @@ class UserSchemaIn(BaseModel):
 
 class GoodSchema(GoodSchemaIn):
     id: int
+    parametrs: str
 
 
 class UserSchema(UserSchemaIn):
