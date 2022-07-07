@@ -4,7 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from databases import Database
 
 SQLALCHEMY_DATABASE_URL = "postgresql://zecmmmfggksxsw:6b428ac78016a8fd7e40a750230c8b0071491b94c8b168886d889254977b97d8@ec2-54-75-184-144.eu-west-1.compute.amazonaws.com:5432/de2m99bem72evj"
-
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 metadata = MetaData()
 
