@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from .database import engine, metadata, database
 from . import users, goods, auth
 
+
 metadata.create_all(engine)
 
 app = FastAPI()
