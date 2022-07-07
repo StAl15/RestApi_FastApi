@@ -9,13 +9,13 @@ app = FastAPI()
 
 
 @app.on_event("startup")
-def startup():
-    database.connect()
+async def startup():
+    await database.connect()
 
 
 @app.on_event("shutdown")
-def shutdown():
-    database.disconnect()
+async def shutdown():
+    await database.disconnect()
 
 
 app.include_router(users.router)
