@@ -6,8 +6,6 @@ from databases import Database
 SQLALCHEMY_DATABASE_URL = "postgresql://zecmmmfggksxsw:6b428ac78016a8fd7e40a750230c8b0071491b94c8b168886d889254977b97d8@ec2-54-75-184-144.eu-west-1.compute.amazonaws.com:5432/de2m99bem72evj"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 metadata = MetaData()
-DATABASE_MIN_POOL_SIZE = 1
-DATABASE_MAX_POOL_SIZE = 20
 
 User = Table(
     "users",
@@ -32,7 +30,7 @@ Good = Table(
     Column('parametrs', String)
 )
 
-database = Database(SQLALCHEMY_DATABASE_URL + f'?min_size={DATABASE_MIN_POOL_SIZE}&max_size={DATABASE_MAX_POOL_SIZE}')
+database = Database(SQLALCHEMY_DATABASE_URL)
 
 # ---- without async ----#
 # sessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
